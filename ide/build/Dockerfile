@@ -24,6 +24,7 @@ RUN apt-get update --fix-missing \
 		build-essential \
 		apt-transport-https \
 		net-tools \
+		putty-tools \
 		libprotobuf-dev \
 		protobuf-compiler \
 		cmake \		
