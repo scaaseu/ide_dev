@@ -1,0 +1,39 @@
+# system libs
+pip
+cmake
+decorator
+pathlib
+rich
+protobuf
+pyautogui
+
+# web
+shiny 
+htmltools
+nodejs
+pyodide-py
+
+# Jupyter
+jupyter 
+jupyterlab 
+jupyter_contrib_nbextensions
+
+# scientific stack
+numpy
+pandas
+biopandas
+librosa
+opencv-python
+dlib
+qiskit
+scikit-learn
+QuantLib
+
+# visualizations
+matplotlib
+plotly
+
+# Excel handling
+openpyxl
+xlsxwriter
+xlrd
