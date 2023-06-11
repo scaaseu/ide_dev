@@ -105,7 +105,7 @@ RUN install2.r --error --repos ${CRAN_MIRROR}\
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-EXPOSE 4815 8787
+EXPOSE 8787 4815
 		
 # spin up RStudio server, JupyterLab, .NET 6, nodejs, and customized VI editor 
 ENTRYPOINT [ "/entrypoint.sh" ]

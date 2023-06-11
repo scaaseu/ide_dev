@@ -23,7 +23,7 @@ services:
           cpus: "2.0"
           memory: 2000M
   ide_dev:
-    image: ide_dev # scaaseu/devops:ide_dev
+    image: scaaseu/devops:ide_dev
     build: ./ide/build
     container_name: ide_dev
     hostname: ide_dev
