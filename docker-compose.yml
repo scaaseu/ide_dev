@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   ide_mysql:
@@ -8,6 +8,7 @@ services:
     command: mysqld --default-authentication-plugin=mysql_native_password      
     container_name: ide_mysql
     hostname: ide_mysql
+    restart: on-failure    
     environment:
       MYSQL_ROOT_PASSWORD: 4815162342
       MYSQL_DATABASE: ide_db_dev
@@ -22,7 +23,7 @@ services:
           cpus: "2.0"
           memory: 2000M
   ide_dev:
-    image: scaaseu/devops:ide_dev
+    image: ide_dev # scaaseu/devops:ide_dev
     build: ./ide/build
     container_name: ide_dev
     hostname: ide_dev
@@ -35,6 +36,9 @@ services:
       - "4815:4815"
     volumes:
       - "./ide/persistent:/home/rstudio/persistent"
+      - "./ide/config:/home/rstudio/.config"
+      - "./ide/jupyter:/home/rstudio/.jupyter"
+      - "./ide/vim:/home/rstudio/.vim"            
     stdin_open: true
     tty: true
     depends_on:

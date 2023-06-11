@@ -13,9 +13,6 @@ RUN mkdir -p "/home/rstudio/persistent" && chmod -R 775 "/home/rstudio/persisten
 VOLUME /home/rstudio/persistent
 WORKDIR /home/rstudio
 COPY requirements.txt /home/rstudio/requirements.txt
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-EXPOSE 8787 4815
 
 # install linux dependencies
 RUN apt-get update --fix-missing \
@@ -59,7 +56,8 @@ RUN apt-get update --fix-missing \
 		dotnet6 \
 		vim \
 		python3-neovim \
-		neovim 
+		neovim \
+		gnucobol
 
 # install python dependencies
 RUN npm install pyodide
@@ -104,6 +102,10 @@ RUN install2.r --error --repos ${CRAN_MIRROR}\
 		adehabitatHR \
 		hms \
 		suncalc
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+EXPOSE 8787 4815
 		
 # spin up RStudio server, JupyterLab, .NET 6, nodejs, and customized VI editor 
 ENTRYPOINT [ "/entrypoint.sh" ]
