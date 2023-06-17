@@ -2,6 +2,7 @@ FROM rocker/rstudio:4.3.0
 
 # system configuration
 ENV ENVIRONMENT_NAME="dev"
+ENV R_INSTALL_STAGED="FALSE"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYODIDE_CDN="https://cdn.jsdelivr.net/pyodide/v0.23.2/full/"
 ENV CRAN_MIRROR="https://cloud.r-project.org"
