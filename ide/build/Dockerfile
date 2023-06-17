@@ -1,18 +1,22 @@
 FROM rocker/rstudio:4.3.0 
 
 # system configuration
+ENV ENVIRONMENT_NAME="dev"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYODIDE_CDN="https://cdn.jsdelivr.net/pyodide/v0.23.2/full/"
 ENV CRAN_MIRROR="https://cloud.r-project.org"
 ENV USER="rstudio"
 RUN usermod -aG sudo rstudio
 RUN echo "${USER}:4815162342" | chpasswd
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN mkdir -p "/home/rstudio/.jupyter"
 RUN mkdir -p "/home/rstudio/.vim/pack/plugins/start"
-RUN mkdir -p "/home/rstudio/persistent" && chmod -R 775 "/home/rstudio/persistent"
-VOLUME /home/rstudio/persistent
+RUN mkdir -p "/home/rstudio/sourcecode"
 WORKDIR /home/rstudio
 COPY requirements.txt /home/rstudio/requirements.txt
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+EXPOSE 8787 4815
 
 # install linux dependencies
 RUN apt-get update --fix-missing \
@@ -20,6 +24,7 @@ RUN apt-get update --fix-missing \
 		ca-certificates \
 		build-essential \
 		apt-transport-https \
+		sudo \
 		net-tools \
 		putty-tools \
 		libprotobuf-dev \
@@ -71,6 +76,7 @@ ENV RETICULATE_PYTHON="/home/rstudio/venv/bin/python"
 RUN install2.r --error --repos ${CRAN_MIRROR}\
 		renv \		
 		devtools \
+		usethis \
 		rstudioapi \
 		roxygen2 \
 		lintr \
@@ -79,7 +85,8 @@ RUN install2.r --error --repos ${CRAN_MIRROR}\
 		future \
 		docstring \			
 		js \		
-		Rcpp \			
+		Rcpp \
+		oysteR \		
 		reticulate \
 		fasttime \ 		
 		tidyverse \
@@ -87,13 +94,18 @@ RUN install2.r --error --repos ${CRAN_MIRROR}\
 		imager \		
 		flextable \
 		knitr \
-		rmarkdown \ 		
+		rmarkdown \ 
+		highcharter \		
 		openxlsx \
-		yaml \			
+		yaml \
+		pool \		
 		rjson \
+		RPostgres \
+		RPostgreSQL \
 		RSQLite \
 		shiny \
 		shinydashboard \
+		shinyjs \
 		htmltools \
 		plotly \
 		rgdal \ 
@@ -103,9 +115,8 @@ RUN install2.r --error --repos ${CRAN_MIRROR}\
 		hms \
 		suncalc
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-EXPOSE 8787 4815
-		
+RUN sudo chown -R rstudio:rstudio /home
+RUN sudo chown -R rstudio:rstudio /usr
+	
 # spin up RStudio server, JupyterLab, .NET 6, nodejs, and customized VI editor 
 ENTRYPOINT [ "/entrypoint.sh" ]

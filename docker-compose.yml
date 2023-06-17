@@ -15,8 +15,8 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - "./ide/build/database/mysql:/var/lib/mysql"
-      # - "./ide/build/database/dumps/init_script.sql:/docker-entrypoint-initdb.d/init_script.sql"      
+      - ./ide/build/database/mysql:/var/lib/mysql:rwx
+      # - ./ide/build/database/dumps/init_script.sql:/docker-entrypoint-initdb.d/init_script.sql:rwx      
     deploy:
       resources:
         limits:
@@ -35,10 +35,10 @@ services:
       - "8787:8787"
       - "4815:4815"
     volumes:
-      - "./ide/persistent:/home/rstudio/persistent"
-      - "./ide/config:/home/rstudio/.config"
-      - "./ide/jupyter:/home/rstudio/.jupyter"
-      - "./ide/vim:/home/rstudio/.vim"            
+      - ./ide/sourcecode:/home/rstudio/sourcecode:rwx
+      - ./ide/config:/home/rstudio/.config:rwx
+      - ./ide/jupyter:/home/rstudio/.jupyter:rwx
+      - ./ide/vim:/home/rstudio/.vim:rwx            
     stdin_open: true
     tty: true
     depends_on:

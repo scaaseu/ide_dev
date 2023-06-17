@@ -1,5 +1,7 @@
 {
     "initial_working_directory": "~",
     "editor_theme": "matrix_glow",
-    "posix_terminal_shell": "bash"
+    "posix_terminal_shell": "bash",
+    "show_hidden_files": true,
+    "default_project_location": "~/sourcecode"
 }
