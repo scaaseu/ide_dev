@@ -118,6 +118,7 @@ RUN install2.r --error --repos ${CRAN_MIRROR}\
 
 RUN sudo chown -R rstudio:rstudio /home
 RUN sudo chown -R rstudio:rstudio /usr
+RUN echo 'Sys.setenv(R_INSTALL_STAGED = FALSE)' >> /home/rstudio/.Rprofile  
 	
 # spin up RStudio server, JupyterLab, .NET 6, nodejs, and customized VI editor 
 ENTRYPOINT [ "/entrypoint.sh" ]
