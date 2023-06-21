@@ -12,6 +12,12 @@ shiny
 htmltools
 nodejs
 pyodide-py
+html5lib
+beautifulsoup4
+tqdm
+pytube
+starlette
+uvicorn
 
 # Jupyter
 jupyter 
