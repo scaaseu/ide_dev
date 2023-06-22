@@ -79,6 +79,7 @@ RUN install2.r --error --repos ${CRAN_MIRROR}\
 		devtools \
 		usethis \
 		rstudioapi \
+		git2r \
 		roxygen2 \
 		lintr \
 		testthat \
