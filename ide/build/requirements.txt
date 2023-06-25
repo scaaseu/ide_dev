@@ -14,10 +14,13 @@ nodejs
 pyodide-py
 html5lib
 beautifulsoup4
-tqdm
-pytube
 starlette
 uvicorn
+
+# video
+tqdm
+pytube
+yt-dlp
 
 # Jupyter
 jupyter 
